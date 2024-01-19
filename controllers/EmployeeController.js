@@ -19,14 +19,16 @@ const getEmployees = async (req, res) => {
     let { data, page, totalPages, totalRecords, sortedColumn, sortDirection } =
         await getData(Employee, req, res);
 
-    res.status(status.success).json({
-        data,
-        page,
-        totalPages,
-        totalRecords,
-        sortedColumn,
-        sortDirection, // Include the sort direction in the response
-    });
+    if (req.query.page && req.query.limit) {
+        res.status(status.success).json({
+            data,
+            page,
+            totalPages,
+            totalRecords,
+            sortedColumn,
+            sortDirection,
+        });
+    }
 };
 
 const addEmployees = async (req, res) => {
